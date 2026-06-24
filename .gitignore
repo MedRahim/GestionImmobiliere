@@ -1,0 +1,22 @@
+node_modules/
+.env
+*.log
+uploads/*
+!uploads/.gitkeep
+
+# Android
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/local.properties
+mobile/android/.idea/
+
+# iOS
+mobile/ios/Pods/
+
+# Metro
+mobile/.metro-health-check*
+
+# OS
+.DS_Store
+Thumbs.db
