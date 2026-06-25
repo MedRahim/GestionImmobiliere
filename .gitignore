@@ -3,6 +3,8 @@ node_modules/
 *.log
 uploads/*
 !uploads/.gitkeep
+backend/.push-backup/
+backend/.push-staging/
 
 # Android
 mobile/android/.gradle/
