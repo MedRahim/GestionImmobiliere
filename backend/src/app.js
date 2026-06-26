@@ -20,6 +20,8 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
+app.use('/uploads', express.static('uploads'));
+
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
@@ -28,11 +30,18 @@ app.get(API_PREFIX, (req, res) => {
   res.status(200).json({
     name: 'Gestion Immobiliere API',
     version: '1.0.0',
-    endpoints: { auth: `${API_PREFIX}/auth` },
+    endpoints: {
+      auth: `${API_PREFIX}/auth`,
+      properties: `${API_PREFIX}/properties`,
+      upload: `${API_PREFIX}/upload`,
+    },
   });
 });
 
 app.use(`${API_PREFIX}/auth`, require('./routes/auth.routes'));
+app.use(`${API_PREFIX}/properties`, require('./routes/properties.routes'));
+app.use(`${API_PREFIX}/upload`, require('./routes/upload.routes'));
+
 app.use('*', (req, res) => res.status(404).json({ success: false, message: 'Endpoint not found' }));
 app.use((err, req, res, next) => errorHandler(err, req, res, next));
 

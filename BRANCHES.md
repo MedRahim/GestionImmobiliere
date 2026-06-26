@@ -7,8 +7,8 @@ Chaque fonctionnalite est poussee sur une **branche separee**, puis fusionnee da
 | Branche | Contenu | Statut |
 |---------|---------|--------|
 | `main` | README + base de donnees | en ligne |
-| `feature/api-auth` | API Node.js — authentification JWT | a pousser |
-| `feature/api-annonces` | API biens immobiliers (CRUD) | a venir |
+| `feature/api-auth` | API Node.js — authentification JWT | fusionne dans main |
+| `feature/api-annonces` | API biens immobiliers (CRUD) | en ligne |
 | `feature/mobile-login` | App React Native — login / inscription | a venir |
 | `feature/mobile-accueil` | Ecrans landing + accueil | a venir |
 | `feature/mobile-recherche` | Recherche et filtres | a venir |
@@ -48,4 +48,4 @@ git pull
 
 ## Prochaine etape
 
-Branche `feature/api-auth` — backend JWT (register, login, refresh, logout, /me)
+Branche `feature/mobile-login` — App React Native login / inscription — **semaine 4 (~6 juillet)**
