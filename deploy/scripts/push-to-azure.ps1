@@ -5,7 +5,7 @@ $ErrorActionPreference = 'Stop'
 
 $projectRoot = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $backendEnv = Join-Path $projectRoot 'backend\.env'
-$bak = Join-Path $env:USERPROFILE 'Downloads\RealEstateManagement.bak'
+$bak = 'C:\Temp\immo-backup\RealEstateManagement.bak'
 $key = Join-Path $env:USERPROFILE 'Downloads\immo-vm_key.pem'
 $vm = 'azureuser@74.248.16.228'
 $uploads = Join-Path $projectRoot 'backend\uploads'
@@ -74,9 +74,10 @@ scp -i $key $localEnvFile "${vm}:~/GestionImmobiliere/deploy/docker/.env"
 Write-Host "Copie script restore..."
 scp -i $key (Join-Path $PSScriptRoot 'restore-backup-on-vm.sh') "${vm}:~/restore-backup-on-vm.sh"
 
+Write-Host "Restauration sur Azure..."
+ssh -i $key $vm "chmod +x ~/restore-backup-on-vm.sh && ~/restore-backup-on-vm.sh '$dbPassword'"
+
 Write-Host ""
-Write-Host "OK. Sur la VM (SSH), lance:"
-Write-Host "  chmod +x ~/restore-backup-on-vm.sh"
-Write-Host "  ~/restore-backup-on-vm.sh 'ImmoAzure2026!Strong'"
-Write-Host "  cd ~/GestionImmobiliere/deploy/docker && docker compose up -d"
+Write-Host "OK - donnees locales migrees sur Azure."
+Write-Host "Test: curl http://74.248.16.228:5000/api/properties"
 Write-Host ""

@@ -11,12 +11,11 @@ CONTAINER=immobiliere-mssql
 
 if [ ! -f "$BAK" ]; then
   echo "Backup introuvable: $BAK"
-  echo "Lance d'abord push-to-azure.ps1 sur ton PC."
   exit 1
 fi
 
 if ! docker ps --format '{{.Names}}' | grep -q "^${CONTAINER}$"; then
-  echo "Conteneur $CONTAINER absent. Lance: cd ~/GestionImmobiliere/deploy/docker && docker compose up -d"
+  echo "Conteneur $CONTAINER absent."
   exit 1
 fi
 
@@ -28,12 +27,12 @@ docker cp "$BAK" "$CONTAINER:/var/opt/mssql/backup/RealEstateManagement.bak"
 
 echo "Lecture des fichiers logiques..."
 FILELIST=$($SQLCMD -Q "RESTORE FILELISTONLY FROM DISK='/var/opt/mssql/backup/RealEstateManagement.bak'" -h -1 -W)
-DATA_LOGICAL=$(echo "$FILELIST" | awk 'NR==1 {print $1}')
-LOG_LOGICAL=$(echo "$FILELIST" | awk 'NR==2 {print $1}')
+DATA_LOGICAL=$(echo "$FILELIST" | sed -n '1p' | awk '{print $1}')
+LOG_LOGICAL=$(echo "$FILELIST" | sed -n '2p' | awk '{print $1}')
 
 echo "Data: $DATA_LOGICAL | Log: $LOG_LOGICAL"
 
-echo "Restauration (remplace la base seed)..."
+echo "Restauration..."
 $SQLCMD -Q "
 IF DB_ID('RealEstateManagement') IS NOT NULL
 BEGIN
@@ -49,7 +48,7 @@ WITH
 "
 
 if [ -d "$UPLOADS_SRC" ]; then
-  echo "Copie images uploads vers API..."
+  echo "Copie images uploads..."
   docker cp "$UPLOADS_SRC/." immobiliere-api:/app/uploads/
 fi
 
@@ -57,5 +56,5 @@ echo "Redemarrage API..."
 cd "$HOME/GestionImmobiliere/deploy/docker"
 docker compose up -d
 
-echo "OK - donnees locales restaurees sur Azure."
-echo "Test: curl http://localhost:5000/api/properties"
+COUNT=$($SQLCMD -d RealEstateManagement -Q "SELECT COUNT(*) FROM dbo.Properties" -h -1 -W | tr -d '[:space:]')
+echo "OK - Properties count: $COUNT"
