@@ -4,36 +4,22 @@
 -- =====================================================
 
 -- =====================================================
--- 1. INSERT SAMPLE USERS (Agents & Clients)
+-- 1. INSERT SAMPLE USERS
 -- =====================================================
 
--- Insert Agents
-INSERT INTO [dbo].[Users] (FirstName, LastName, Email, PasswordHash, PhoneNumber, Role, ProfileImage, Bio, IsActive, IsVerified)
+-- Insert Users
+INSERT INTO [dbo].[Users] (FirstName, LastName, Email, PasswordHash, PhoneNumber, ProfileImage, Bio, IsActive, IsVerified)
 VALUES
-    ('Ahmed', 'Ben Ali', 'ahmed.benali@immobilien.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21612345678', 'agent', NULL, 'Experienced real estate agent with 10+ years', 1, 1),
-    ('Fatima', 'Saidi', 'fatima.saidi@immobilien.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21622345678', 'agent', NULL, 'Specializing in luxury properties', 1, 1),
-    ('Mohamed', 'Guellouz', 'mohamed.guellouz@immobilien.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21632345678', 'agent', NULL, 'Commercial real estate specialist', 1, 1);
-
--- Insert Clients
-INSERT INTO [dbo].[Users] (FirstName, LastName, Email, PasswordHash, PhoneNumber, Role, ProfileImage, Bio, IsActive, IsVerified)
-VALUES
-    ('Ali', 'Khamis', 'ali.khamis@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650001111', 'client', NULL, NULL, 1, 1),
-    ('Hana', 'Meddeb', 'hana.meddeb@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650002222', 'client', NULL, NULL, 1, 1),
-    ('Sami', 'Yahyaoui', 'sami.yahyaoui@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650003333', 'client', NULL, NULL, 1, 1),
-    ('Nadia', 'Bouattour', 'nadia.bouattour@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650004444', 'client', NULL, NULL, 1, 1);
+    ('Ahmed', 'Ben Ali', 'ahmed.benali@immobilien.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21612345678', NULL, 'Experienced real estate professional with 10+ years', 1, 1),
+    ('Fatima', 'Saidi', 'fatima.saidi@immobilien.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21622345678', NULL, 'Specializing in luxury properties', 1, 1),
+    ('Mohamed', 'Guellouz', 'mohamed.guellouz@immobilien.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21632345678', NULL, 'Commercial real estate specialist', 1, 1),
+    ('Ali', 'Khamis', 'ali.khamis@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650001111', NULL, NULL, 1, 1),
+    ('Hana', 'Meddeb', 'hana.meddeb@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650002222', NULL, NULL, 1, 1),
+    ('Sami', 'Yahyaoui', 'sami.yahyaoui@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650003333', NULL, NULL, 1, 1),
+    ('Nadia', 'Bouattour', 'nadia.bouattour@email.tn', '$2a$10$RSuygwXpCJbXKimvlF4DZe5Q54tl4cl2nTZZFlXjKNkJz0RVJQd7S', '21650004444', NULL, NULL, 1, 1);
 
 -- =====================================================
--- 2. INSERT AGENCIES
--- =====================================================
-
-INSERT INTO [dbo].[Agencies] (AgentId, AgencyName, AgencyEmail, AgencyPhone, Address, City, State, ZipCode, Country, Logo, WebsiteUrl, Description, IsActive)
-VALUES
-    (1, 'Prime Immobilier Tunis', 'contact@primeimmobilier.tn', '21612345678', 'Avenue Habib Bourguiba 123', 'Tunis', 'Tunis', '1000', 'Tunisia', NULL, 'https://primeimmobilier.tn', 'Leading real estate agency in Tunis', 1),
-    (2, 'Luxe Properties', 'info@luxeproperties.tn', '21622345678', 'Avenue de la Liberté 456', 'Tunis', 'Tunis', '1000', 'Tunisia', NULL, 'https://luxeproperties.tn', 'Premium luxury properties', 1),
-    (3, 'Commercial Realty Group', 'hello@commercialrealty.tn', '21632345678', 'Rue de la République 789', 'Tunis', 'Tunis', '1000', 'Tunisia', NULL, 'https://commercialrealty.tn', 'Commercial and office spaces', 1);
-
--- =====================================================
--- 3. INSERT SAMPLE PROPERTIES
+-- 2. INSERT SAMPLE PROPERTIES
 -- =====================================================
 
 -- Apartment listings
@@ -152,18 +138,7 @@ VALUES
     (7, 2, 4, GETUTCDATE(), 1);
 
 -- =====================================================
--- 9. INSERT SAMPLE SAVED SEARCHES
--- =====================================================
-
-INSERT INTO [dbo].[SavedSearches] (UserId, SearchName, PropertyTypeFilter, MinPrice, MaxPrice, MinBedrooms, MaxBedrooms, CityFilter, NotifyOnNewMatch, SearchFilters)
-VALUES
-    (4, 'Downtown Apartments Under 500k', 'apartment', 200000, 500000, 2, 3, 'Tunis', 1, '{"amenities": ["pool", "parking"]}'),
-    (5, 'Villas in La Marsa', 'villa', 800000, 1500000, 4, 6, 'La Marsa', 1, '{"amenities": ["pool", "garden", "security"]}'),
-    (6, 'Budget-Friendly Studios', 'apartment', 100000, 200000, 0, 1, 'Tunis', 1, '{"amenities": ["furnished", "parking"]}'),
-    (7, 'Coastal Properties', 'villa', 500000, 1200000, 3, 5, 'Sidi Bou Said', 1, '{"amenities": ["seaview"]}');
-
--- =====================================================
--- 10. INSERT SAMPLE PROPERTY VIEWS (ANALYTICS)
+-- 9. INSERT SAMPLE PROPERTY VIEWS (ANALYTICS)
 -- =====================================================
 
 INSERT INTO [dbo].[PropertyViews] (PropertyId, UserId, ViewedAt, Source, TimeSpent)
@@ -186,8 +161,6 @@ VALUES
 -- Verify data was inserted correctly
 SELECT 'Users' AS TableName, COUNT(*) AS RecordCount FROM [dbo].[Users]
 UNION ALL
-SELECT 'Agencies', COUNT(*) FROM [dbo].[Agencies]
-UNION ALL
 SELECT 'Properties', COUNT(*) FROM [dbo].[Properties]
 UNION ALL
 SELECT 'Inquiries', COUNT(*) FROM [dbo].[Inquiries]
@@ -199,8 +172,6 @@ UNION ALL
 SELECT 'Notifications', COUNT(*) FROM [dbo].[Notifications]
 UNION ALL
 SELECT 'Conversations', COUNT(*) FROM [dbo].[Conversations]
-UNION ALL
-SELECT 'SavedSearches', COUNT(*) FROM [dbo].[SavedSearches]
 UNION ALL
 SELECT 'PropertyViews', COUNT(*) FROM [dbo].[PropertyViews];
 

@@ -4,6 +4,7 @@ const authController = require('../controllers/authController');
 const { verifyToken } = require('../middleware/auth');
 
 const router = express.Router();
+
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 20,
@@ -12,8 +13,10 @@ const loginLimiter = rateLimit({
 
 router.post('/register', authController.register);
 router.post('/login', loginLimiter, authController.login);
+router.post('/google', loginLimiter, authController.googleLogin);
 router.post('/refresh', authController.refreshToken);
 router.post('/logout', verifyToken, authController.logout);
 router.get('/me', verifyToken, authController.getCurrentUser);
+router.put('/profile', verifyToken, authController.updateProfile);
 
 module.exports = router;

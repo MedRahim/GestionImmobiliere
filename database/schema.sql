@@ -17,7 +17,6 @@ CREATE TABLE [dbo].[Users] (
     [Email] NVARCHAR(255) UNIQUE NOT NULL,
     [PasswordHash] NVARCHAR(MAX) NOT NULL,
     [PhoneNumber] NVARCHAR(20),
-    [Role] NVARCHAR(20) NOT NULL CHECK ([Role] IN ('agent', 'client')), -- 'agent' or 'client'
     [ProfileImage] NVARCHAR(MAX), -- URL to profile image
     [Bio] NVARCHAR(500),
     [IsActive] BIT DEFAULT 1,
@@ -243,7 +242,6 @@ CREATE TABLE [dbo].[SavedSearches] (
 
 -- Users indexes
 CREATE INDEX [idx_users_email] ON [dbo].[Users]([Email]);
-CREATE INDEX [idx_users_role] ON [dbo].[Users]([Role]);
 CREATE INDEX [idx_users_is_active] ON [dbo].[Users]([IsActive]);
 
 -- Properties indexes

@@ -1,10 +1,15 @@
 node_modules/
 .env
 *.log
+deploy/docker/.env
+deploy/openstack/.env
 uploads/*
 !uploads/.gitkeep
+backend/uploads/*
+!backend/uploads/.gitkeep
 backend/.push-backup/
 backend/.push-staging/
+*.apk
 
 # Android
 mobile/android/.gradle/
