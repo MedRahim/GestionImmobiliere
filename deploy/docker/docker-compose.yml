@@ -44,7 +44,10 @@ services:
       JWT_SECRET: ${JWT_SECRET:-dev-docker-secret-change-me}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev-docker-refresh-change-me}
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
-      AI_PROVIDER: ${AI_PROVIDER:-guide}
+      AI_PROVIDER: ${AI_PROVIDER:-groq}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.1-8b-instant}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
     volumes:
       - api_uploads:/app/uploads
 

@@ -25,7 +25,9 @@ CREATE TABLE [dbo].[Users] (
     [LastLogin] DATETIME,
     [CreatedAt] DATETIME DEFAULT GETUTCDATE(),
     [UpdatedAt] DATETIME DEFAULT GETUTCDATE(),
-    [DeletedAt] DATETIME NULL -- Soft delete
+    [DeletedAt] DATETIME NULL, -- Soft delete
+    [GoogleId] NVARCHAR(255) NULL,
+    [AuthProvider] NVARCHAR(20) NULL DEFAULT 'local'
 );
 
 -- =====================================================
@@ -243,6 +245,8 @@ CREATE TABLE [dbo].[SavedSearches] (
 -- Users indexes
 CREATE INDEX [idx_users_email] ON [dbo].[Users]([Email]);
 CREATE INDEX [idx_users_is_active] ON [dbo].[Users]([IsActive]);
+CREATE UNIQUE INDEX [UX_Users_GoogleId] ON [dbo].[Users]([GoogleId])
+  WHERE [GoogleId] IS NOT NULL AND [DeletedAt] IS NULL;
 
 -- Properties indexes
 CREATE INDEX [idx_properties_agent_id] ON [dbo].[Properties]([AgentId]);
