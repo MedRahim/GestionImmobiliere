@@ -1,16 +1,22 @@
 #!/bin/bash
 # Initialise la BDD dans SQL Server (Docker local ou VM OpenStack)
-# Usage: ./init-database.sh [host] [sa_password]
+# Usage: ./init-database.sh [host] [sa_password] [fresh]
 
 set -euo pipefail
 
 HOST="${1:-localhost}"
 SA_PASSWORD="${2:-ChangeMe_Strong_Password_123!}"
+FRESH="${3:-}"
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 
 SQLCMD="docker exec -i immobiliere-mssql /opt/mssql-tools18/bin/sqlcmd -S ${HOST} -U sa -P ${SA_PASSWORD} -C"
 
 if docker ps --format '{{.Names}}' | grep -q '^immobiliere-mssql$'; then
+  if [ "$FRESH" = "fresh" ] || [ "$FRESH" = "--fresh" ]; then
+    echo "Suppression base existante..."
+    $SQLCMD -Q "IF DB_ID('RealEstateManagement') IS NOT NULL BEGIN ALTER DATABASE RealEstateManagement SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE RealEstateManagement; END"
+  fi
+
   echo "Creation base RealEstateManagement..."
   $SQLCMD -Q "IF DB_ID('RealEstateManagement') IS NULL CREATE DATABASE RealEstateManagement"
   echo "Application schema.sql..."

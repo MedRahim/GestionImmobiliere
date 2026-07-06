@@ -116,7 +116,7 @@ CREATE TABLE [dbo].[PropertyViews] (
     [TimeSpent] INT, -- seconds on property page
     
     FOREIGN KEY ([PropertyId]) REFERENCES [dbo].[Properties]([PropertyId]) ON DELETE CASCADE,
-    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE SET NULL
+    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION
 );
 
 -- =====================================================
@@ -129,7 +129,7 @@ CREATE TABLE [dbo].[Favorites] (
     [CreatedAt] DATETIME DEFAULT GETUTCDATE(),
     
     UNIQUE([UserId], [PropertyId]),
-    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE,
+    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION,
     FOREIGN KEY ([PropertyId]) REFERENCES [dbo].[Properties]([PropertyId]) ON DELETE CASCADE
 );
 
@@ -154,8 +154,8 @@ CREATE TABLE [dbo].[Inquiries] (
     [UpdatedAt] DATETIME DEFAULT GETUTCDATE(),
     
     FOREIGN KEY ([PropertyId]) REFERENCES [dbo].[Properties]([PropertyId]) ON DELETE CASCADE,
-    FOREIGN KEY ([ClientId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE,
-    FOREIGN KEY ([AgentId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE
+    FOREIGN KEY ([ClientId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION,
+    FOREIGN KEY ([AgentId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION
 );
 
 -- =====================================================
@@ -172,8 +172,8 @@ CREATE TABLE [dbo].[Messages] (
     [ReadAt] DATETIME,
     [CreatedAt] DATETIME DEFAULT GETUTCDATE(),
     
-    FOREIGN KEY ([SenderId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE,
-    FOREIGN KEY ([ReceiverId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE,
+    FOREIGN KEY ([SenderId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION,
+    FOREIGN KEY ([ReceiverId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION,
     FOREIGN KEY ([InquiryId]) REFERENCES [dbo].[Inquiries]([InquiryId]) ON DELETE SET NULL
 );
 
@@ -190,8 +190,8 @@ CREATE TABLE [dbo].[Conversations] (
     [CreatedAt] DATETIME DEFAULT GETUTCDATE(),
     
     UNIQUE([User1Id], [User2Id]),
-    FOREIGN KEY ([User1Id]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE,
-    FOREIGN KEY ([User2Id]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE,
+    FOREIGN KEY ([User1Id]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION,
+    FOREIGN KEY ([User2Id]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION,
     FOREIGN KEY ([PropertyId]) REFERENCES [dbo].[Properties]([PropertyId]) ON DELETE SET NULL
 );
 
