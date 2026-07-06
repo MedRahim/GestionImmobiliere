@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY backend/package.json backend/package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --omit=optional
 
 COPY backend/src ./src
 RUN mkdir -p uploads && chown -R node:node /app
