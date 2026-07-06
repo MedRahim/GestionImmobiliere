@@ -210,9 +210,9 @@ CREATE TABLE [dbo].[Notifications] (
     [ReadAt] DATETIME,
     [CreatedAt] DATETIME DEFAULT GETUTCDATE(),
     
-    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE CASCADE,
-    FOREIGN KEY ([RelatedPropertyId]) REFERENCES [dbo].[Properties]([PropertyId]) ON DELETE SET NULL,
-    FOREIGN KEY ([RelatedInquiryId]) REFERENCES [dbo].[Inquiries]([InquiryId]) ON DELETE SET NULL
+    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users]([UserId]) ON DELETE NO ACTION,
+    FOREIGN KEY ([RelatedPropertyId]) REFERENCES [dbo].[Properties]([PropertyId]) ON DELETE NO ACTION,
+    FOREIGN KEY ([RelatedInquiryId]) REFERENCES [dbo].[Inquiries]([InquiryId]) ON DELETE NO ACTION
 );
 
 -- =====================================================
