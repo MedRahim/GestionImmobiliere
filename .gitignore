@@ -1,0 +1,9 @@
+# Whitelist for gh-pages deploy
+*
+!.gitignore
+!.nojekyll
+!index.html
+!ImmoDary-release.apk
+!assets/
+!assets/**
+!assets/**/*
