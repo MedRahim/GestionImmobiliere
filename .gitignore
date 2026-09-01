@@ -1,0 +1,38 @@
+node_modules/
+.env
+*.log
+deploy/docker/.env
+uploads/*
+!uploads/.gitkeep
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/.push-backup/
+backend/.push-staging/
+
+# APK (disponible via landing/ pour gh-pages uniquement)
+*.apk
+!landing/ImmoDary-release.apk
+
+# Android build
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/local.properties
+mobile/android/.idea/
+
+# iOS
+mobile/ios/Pods/
+
+# Metro
+mobile/.metro-health-check*
+
+# Docs internes (hors code source)
+docs/screenshots/
+docs/*.html
+docs/*.pdf
+docs/PDFs-POUR-TELEPHONE/
+docs/JOURNAL-*
+
+# OS
+.DS_Store
+Thumbs.db
