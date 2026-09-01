@@ -1,0 +1,68 @@
+# Test local du stack production avant OpenStack
+# Usage: cd deploy/docker && cp ../openstack/.env.production.example .env && docker compose up -d --build
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: immobiliere-mssql
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD:-ChangeMe_Strong_Password_123!}
+      MSSQL_PID: Developer
+    ports:
+      - '1433:1433'
+    volumes:
+      - mssql_data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$${MSSQL_SA_PASSWORD}" -C -Q "SELECT 1" || exit 1
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
+
+  api:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    container_name: immobiliere-api
+    restart: unless-stopped
+    depends_on:
+      mssql:
+        condition: service_healthy
+    ports:
+      - '5000:5000'
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 5000
+      API_PREFIX: /api
+      DB_USE_WINDOWS_AUTH: 'false'
+      DB_HOST: mssql
+      DB_PORT: 1433
+      DB_NAME: ${DB_NAME:-RealEstateManagement}
+      DB_USER: sa
+      DB_PASSWORD: ${DB_PASSWORD:-ChangeMe_Strong_Password_123!}
+      JWT_SECRET: ${JWT_SECRET:-dev-docker-secret-change-me}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev-docker-refresh-change-me}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      AI_PROVIDER: ${AI_PROVIDER:-groq}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.1-8b-instant}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_CURRENCY: ${STRIPE_CURRENCY:-eur}
+      STRIPE_TND_TO_EUR: ${STRIPE_TND_TO_EUR:-0.3}
+      API_PUBLIC_URL: ${API_PUBLIC_URL:-http://74.248.16.228:5000}
+    volumes:
+      - api_uploads:/app/uploads
+
+volumes:
+  mssql_data:
+  api_uploads:
