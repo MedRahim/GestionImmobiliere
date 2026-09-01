@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Immo Dary — Trouvez votre espace. Solution mobile immobilière en Tunisie." />
+  <meta name="theme-color" content="#0B1F2E" />
+  <title>Immo Dary — Trouvez votre espace</title>
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0B1F2E;
+      --cyan: #0DB8C4;
+      --cyan-light: #3dd9e3;
+      --bg: #f8fafb;
+      --surface: #fff;
+      --text: #1a222c;
+      --muted: #64748b;
+      --border: rgba(11,31,46,.08);
+      --shadow: 0 24px 64px rgba(11,31,46,.12);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"DM Sans",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.85rem 5vw;background:rgba(11,31,46,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand img{height:40px;width:auto;display:block}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.9rem;font-weight:500}
+    .nav-links a:hover{color:var(--cyan-light)}
+    .nav-cta{background:var(--cyan);color:var(--navy);font-weight:700;font-size:.88rem;text-decoration:none;padding:.6rem 1.2rem;border-radius:999px}
+
+    /* ── Hero: texte à gauche, téléphone à droite ── */
+    .hero{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:2.5rem;
+      padding:6.5rem 5vw 4rem;
+      background:radial-gradient(ellipse 70% 50% at 80% 10%,rgba(13,184,196,.14),transparent),linear-gradient(165deg,var(--navy),#061018);
+      color:#fff;
+      text-align:left;
+      overflow:hidden;
+    }
+
+    .hero-copy{max-width:520px}
+
+    .hero-logo{width:min(220px,70vw);margin-bottom:1.5rem;filter:drop-shadow(0 8px 24px rgba(0,0,0,.25))}
+
+    .hero h1{font-family:"Instrument Serif",serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.15;margin-bottom:1rem}
+    .hero h1 em{font-style:italic;color:var(--cyan-light)}
+
+    .hero-lead{color:rgba(255,255,255,.72);font-size:1.05rem;margin-bottom:1.75rem}
+
+    .hero-actions{display:flex;flex-wrap:wrap;gap:.85rem;align-items:center}
+
+    .hero-device{display:flex;flex-direction:column;align-items:center;justify-content:center}
+
+    .phone-wrap{width:min(290px,78vw)}
+
+    .device-frame{
+      width:100%;aspect-ratio:9/19;
+      border-radius:38px;
+      border:3px solid rgba(255,255,255,.14);
+      background:#0a1820;
+      box-shadow:var(--shadow);
+      padding:10px;
+      animation:float 5s ease-in-out infinite;
+    }
+
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+    .device-screen{
+      width:100%;height:100%;
+      border-radius:30px;
+      overflow:hidden;
+      background:#fff;
+      position:relative;
+    }
+
+    .phone-track{
+      display:flex;
+      height:100%;
+      transition:transform .55s cubic-bezier(.4,0,.2,1);
+      will-change:transform;
+    }
+
+    .phone-track img{
+      width:100%;height:100%;
+      flex-shrink:0;
+      object-fit:cover;
+      display:block;
+    }
+
+    .phone-logo-overlay{
+      position:absolute;top:10px;right:10px;
+      width:52px;height:52px;
+      pointer-events:none;
+      filter:drop-shadow(0 2px 8px rgba(0,0,0,.15));
+    }
+
+    .phone-dots{
+      display:flex;justify-content:center;align-items:center;
+      gap:8px;margin-top:1.25rem;
+      padding:.55rem 1rem;
+      background:rgba(255,255,255,.08);
+      border-radius:20px;
+      width:fit-content;
+      margin-left:auto;margin-right:auto;
+    }
+
+    .phone-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:rgba(255,255,255,.3);
+      border:none;padding:0;cursor:pointer;
+      transition:width .35s,background .35s;
+    }
+
+    .phone-dot.active{width:28px;border-radius:4px;background:var(--cyan)}
+
+    .btn-primary{display:inline-flex;align-items:center;gap:.55rem;background:var(--cyan);color:var(--navy);font-weight:700;text-decoration:none;padding:.95rem 1.6rem;border-radius:14px;box-shadow:0 12px 40px rgba(13,184,196,.35);transition:transform .2s,background .2s}
+    .btn-primary:hover{background:var(--cyan-light);transform:translateY(-2px)}
+    .btn-primary svg{width:18px;height:18px}
+    .hero-note{font-size:.82rem;color:rgba(255,255,255,.45)}
+
+    section{padding:4.5rem 5vw}
+    .section-label{font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:.65rem}
+    .section-title{font-family:"Instrument Serif",serif;font-size:clamp(1.7rem,3.2vw,2.4rem);color:var(--navy);margin-bottom:.85rem;max-width:640px}
+    .section-lead{color:var(--muted);max-width:580px;margin-bottom:2.5rem;font-size:1.02rem}
+
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .stat{background:var(--surface);padding:2rem 1rem;text-align:center}
+    .stat-val{font-family:"Instrument Serif",serif;font-size:clamp(1.8rem,3vw,2.5rem);color:var(--navy)}
+    .stat-val span{color:var(--cyan)}
+    .stat-lbl{font-size:.82rem;color:var(--muted);margin-top:.35rem}
+
+    .solution{background:var(--surface)}
+    .solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:1100px}
+    .solution-card{padding:1.75rem;background:var(--bg);border-radius:18px;border:1px solid var(--border);transition:transform .25s}
+    .solution-card:hover{transform:translateY(-4px)}
+    .solution-card h3{font-size:1.05rem;color:var(--navy);margin-bottom:.4rem}
+    .solution-card p{font-size:.9rem;color:var(--muted)}
+
+    .features{max-width:1100px}
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:18px;overflow:hidden;border:1px solid var(--border)}
+    .feat{background:var(--surface);padding:1.75rem;display:flex;gap:.85rem}
+    .feat-num{font-family:"Instrument Serif",serif;font-size:1.75rem;color:var(--cyan);opacity:.75}
+    .feat h3{font-size:.98rem;color:var(--navy);margin-bottom:.3rem}
+    .feat p{font-size:.86rem;color:var(--muted)}
+
+    .stack{background:var(--navy);color:#fff;text-align:center}
+    .stack .section-title{color:#fff;margin:0 auto .75rem}
+    .stack .section-lead{color:rgba(255,255,255,.6);margin:0 auto 2rem}
+    .pills{display:flex;flex-wrap:wrap;justify-content:center;gap:.65rem;max-width:700px;margin:0 auto}
+    .pills span{padding:.45rem 1rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:.84rem}
+
+    .cta{text-align:center;padding:5rem 5vw}
+    .cta-box{max-width:580px;margin:0 auto;padding:3rem 2rem;background:var(--surface);border-radius:24px;border:1px solid var(--border)}
+    .cta-box img{width:120px;margin-bottom:1.25rem}
+    .cta-box h2{font-family:"Instrument Serif",serif;font-size:clamp(1.6rem,3vw,2rem);color:var(--navy);margin-bottom:.65rem}
+    .cta-box p{color:var(--muted);margin-bottom:1.5rem}
+
+    footer{padding:1.75rem 5vw;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.84rem;color:var(--muted)}
+    footer a{color:#0a9aa3;text-decoration:none}
+
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hero{grid-template-columns:1fr;text-align:center;padding-top:5.5rem}
+      .hero-copy{margin:0 auto}
+      .hero-actions{justify-content:center}
+      .hero-device{order:-1}
+      .solution-grid,.features-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){.btn-primary{width:100%;justify-content:center}}
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="brand" href="#"><img src="assets/logo.png" alt="Immo Dary" /></a>
+    <ul class="nav-links">
+      <li><a href="#solution">Solution</a></li>
+      <li><a href="#features">Fonctionnalités</a></li>
+      <li><a href="#download">Télécharger</a></li>
+    </ul>
+    <a class="nav-cta" href="ImmoDary-release.apk" download="ImmoDary-release.apk">Télécharger</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-copy">
+      <img class="hero-logo" src="assets/logo.png" alt="Immo Dary — Trouvez votre espace" />
+      <h1>L'immobilier tunisien, <em>réinventé</em></h1>
+      <p class="hero-lead">Immo Dary connecte acheteurs, vendeurs et professionnels — carte interactive, annonces, messagerie et assistant intelligent.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="ImmoDary-release.apk" download="ImmoDary-release.apk">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Télécharger l'application
+        </a>
+        <span class="hero-note">Android · Gratuit</span>
+      </div>
+    </div>
+
+    <div class="hero-device">
+      <div class="phone-wrap">
+        <div class="device-frame">
+          <div class="device-screen">
+            <div class="phone-track" id="track">
+              <img src="assets/landing/landing1.png" alt="Recherche et carte interactive" />
+              <img src="assets/landing/landing2.png" alt="Achetez et vendez facilement" />
+              <img src="assets/landing/landing3.png" alt="Notifications en temps réel" />
+              <img src="assets/landing/landing4.png" alt="Messagerie sécurisée" />
+              <img src="assets/landing/landing5.png" alt="Vos favoris" />
+            </div>
+            <img class="phone-logo-overlay" src="assets/logo.png" alt="" aria-hidden="true" />
+          </div>
+        </div>
+        <div class="phone-dots" id="dots"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-val"><span data-count="15">0</span>+</div><div class="stat-lbl">Biens actifs</div></div>
+    <div class="stat"><div class="stat-val"><span data-count="5">0</span></div><div class="stat-lbl">Langues</div></div>
+    <div class="stat"><div class="stat-val">100<span>%</span></div><div class="stat-lbl">Cloud Azure</div></div>
+    <div class="stat"><div class="stat-val">24<span>/7</span></div><div class="stat-lbl">API disponible</div></div>
+  </div>
+
+  <section class="solution reveal" id="solution">
+    <div class="section-label">Notre solution</div>
+    <h2 class="section-title">Une réponse moderne aux enjeux immobiliers</h2>
+    <p class="section-lead">Centralisez l'ensemble du parcours immobilier dans une application fluide, sécurisée et déployée sur le cloud.</p>
+    <div class="solution-grid">
+      <article class="solution-card"><h3>Visibilité &amp; découverte</h3><p>Carte OpenStreetMap, recherche avancée et filtres intelligents.</p></article>
+      <article class="solution-card"><h3>Publication simplifiée</h3><p>Publiez annonces, photos et vidéos depuis votre mobile.</p></article>
+      <article class="solution-card"><h3>Relation client intégrée</h3><p>Messagerie, favoris et notifications en temps réel.</p></article>
+    </div>
+  </section>
+
+  <section class="features reveal" id="features">
+    <div class="section-label">Fonctionnalités</div>
+    <h2 class="section-title">Tout ce dont vous avez besoin</h2>
+    <p class="section-lead">De l'exploration à la transaction, chaque étape est couverte.</p>
+    <div class="features-grid">
+      <div class="feat"><span class="feat-num">01</span><div><h3>Carte &amp; annonces</h3><p>Carte dynamique avec liste synchronisée.</p></div></div>
+      <div class="feat"><span class="feat-num">02</span><div><h3>Guide IA</h3><p>Assistant intelligent pour l'app et les quartiers.</p></div></div>
+      <div class="feat"><span class="feat-num">03</span><div><h3>Réservations &amp; Stripe</h3><p>Visites et paiements sécurisés.</p></div></div>
+      <div class="feat"><span class="feat-num">04</span><div><h3>Multilingue &amp; sécurisé</h3><p>5 langues, JWT, Google, Azure + SQL Server.</p></div></div>
+    </div>
+  </section>
+
+  <section class="stack reveal" id="tech">
+    <div class="section-label">Technologie</div>
+    <h2 class="section-title">Construit pour durer</h2>
+    <p class="section-lead">Architecture robuste, pensée pour évoluer.</p>
+    <div class="pills">
+      <span>React Native</span><span>Node.js</span><span>SQL Server</span><span>Azure</span>
+      <span>Docker</span><span>Stripe</span><span>Groq AI</span><span>OpenStreetMap</span>
+    </div>
+  </section>
+
+  <section class="cta reveal" id="download">
+    <div class="cta-box">
+      <img src="assets/logo.png" alt="Immo Dary" />
+      <h2>Prêt à trouver votre espace ?</h2>
+      <p>Téléchargez Immo Dary sur Android.</p>
+      <a class="btn-primary" href="ImmoDary-release.apk" download="ImmoDary-release.apk">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Télécharger Immo Dary
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Immo Dary · PLM-Ressources</span>
+  </footer>
+
+  <script>
+    const track = document.getElementById('track');
+    const dotsEl = document.getElementById('dots');
+    const total = track.children.length;
+    let idx = 0;
+
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'phone-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Écran ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+    }
+
+    function goTo(i) {
+      idx = i;
+      track.style.transform = 'translateX(-' + (i * 100) + '%)';
+      dotsEl.querySelectorAll('.phone-dot').forEach((d, j) => d.classList.toggle('active', j === i));
+    }
+
+    // Auto-swipe comme dans l'app (4.5 s)
+    setInterval(() => goTo((idx + 1) % total), 4500);
+
+    // Swipe tactile
+    let startX = 0;
+    track.parentElement.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.parentElement.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? (idx + 1) % total : (idx - 1 + total) % total);
+    }, { passive: true });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 }).observe(el);
+    });
+
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const t = +el.dataset.count;
+      new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) return;
+        let n = 0; const s = Math.ceil(t / 35);
+        const tick = () => { n = Math.min(n + s, t); el.textContent = n; if (n < t) requestAnimationFrame(tick); };
+        tick();
+      }, { threshold: .5 }).observe(el);
+    });
+  </script>
+</body>
+</html>
