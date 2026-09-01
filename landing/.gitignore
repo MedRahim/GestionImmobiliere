@@ -4,5 +4,6 @@
 !.nojekyll
 !index.html
 !ImmoDary-release.apk
+!assets/
 !assets/**
 !assets/**/*
